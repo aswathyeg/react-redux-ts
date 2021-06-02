@@ -6,6 +6,7 @@ interface UserEvents{
 
 }
 interface UserEventsReducer{//for normalising data
+    byIds:Record<UserEvents['id'],UserEvents>;//Extract 'id' as key and value as object
 
 }
 
