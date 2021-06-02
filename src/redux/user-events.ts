@@ -1,11 +1,13 @@
 interface UserEvents{
-    id:number
-    title:string,
-    dateStart:string,
-    dateEnd:string
+    id:number;
+    title:string;
+    dateStart:string;
+    dateEnd:string;
 
 }
+interface UserEventsReducer{//for normalising data
 
+}
 
 
 const userEventsReducer=(state,action)=>{
