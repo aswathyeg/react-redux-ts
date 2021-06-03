@@ -1,9 +1,9 @@
 import React from 'react'
-const myComponent=()=>{
+const Recorder=()=>{
 return(
     <div>
 
     </div>
 )
 }
-export default myComponent;
+export default Recorder;
