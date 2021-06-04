@@ -22,8 +22,18 @@ export const stop=(): StopAction=>({
  
  });
 
-const recorderReducer=(state:RecorderState,action:StartAction|StopAction)=>{
+ const initialState:RecorderState={
+    dateStart:''
+ } //
+
+const recorderReducer=(state:RecorderState =initialState,
+    action:StartAction|StopAction)=>{
     switch (action.type){
+        case START:
+         return {...state,dateStart:new Date().toISOString()};
+         case STOP:
+            return {...state,dateStart:''};
+            }
        default:
         return state;
     };
