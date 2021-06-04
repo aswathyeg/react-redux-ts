@@ -22,7 +22,7 @@ export const stop=(): StopAction=>({
  
  });
 
-const recorderReducer=(state:RecorderState,action)=>{
+const recorderReducer=(state:RecorderState,action:StartAction|StopAction)=>{
     switch (action.type){
        default:
         return state;
