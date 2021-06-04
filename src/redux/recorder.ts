@@ -12,11 +12,12 @@ const STOP='recoder/stop';
 type StartAction=Action<typeof START>;
 type StopAction=Action<typeof STOP>;
 
-const start=(): StartAction=>({
+//action creaters
+ export const start=(): StartAction=>({
    type:START
 
 });
-const stop=(): StopAction=>({
+export const stop=(): StopAction=>({
     type:STOP
  
  });
