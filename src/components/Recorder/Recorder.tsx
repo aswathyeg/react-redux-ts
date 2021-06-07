@@ -8,13 +8,15 @@ const Recorder=()=>{
    const dispatch=useDispatch();
    const dateStart=useSelector(selectDateStart);//to read state
    const started=dateStart!='';
+   let interval=null;
 
    const handleClick=()=>{
     dispatch(start());
+    interval=window.setInterval(()=>{},1000);
 
-    }
+    };
 return(
-    <div className="recorder">
+    <div className={cx('recorder',{'recorder-started':started})}  >
         <button onClick={handleClick} className="recorder-record">
             <span></span>
             </button>
