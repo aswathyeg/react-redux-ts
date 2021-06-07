@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDateStart, start } from '../../redux/recorder';
 import './Recorder.css';
@@ -8,11 +8,11 @@ const Recorder=()=>{
    const dispatch=useDispatch();
    const dateStart=useSelector(selectDateStart);//to read state
    const started=dateStart!='';
-   let interval=null;
+   let interval=useRef<number>();
 
    const handleClick=()=>{
     dispatch(start());
-    interval=window.setInterval(()=>{},1000);
+    interval.current=window.setInterval(()=>{},1000);
 
     };
 return(
