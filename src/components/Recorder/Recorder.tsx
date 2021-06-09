@@ -1,9 +1,13 @@
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectDateStart, start } from '../../redux/recorder';
+import { selectDateStart, start,stop } from '../../redux/recorder';
 import './Recorder.css';
 import cx from 'classnames';
+
+const addZero=(num:number)=>
+    (num<10?`0${num}`:`${num}`);
+
 
 const Recorder=()=>{
    const dispatch=useDispatch();
@@ -13,10 +17,18 @@ const Recorder=()=>{
    const [,setCount]=useState<number>(0);
 
    const handleClick=()=>{
-    dispatch(start());
-    interval.current=window.setInterval(()=>{
-        setCount(count=>count+1);
-    },1000);
+       if (started){
+           window.clearInterval(interval.current);
+           dispatch(stop());
+
+       }
+       else{
+        dispatch(start());
+        interval.current=window.setInterval(()=>{
+            setCount(count=>count+1);
+        },1000);
+       }
+    
     
    };
 
@@ -39,9 +51,9 @@ return(
         <button onClick={handleClick} className="recorder-record">
             <span></span>
             </button>
-            <div className="recorder-counter">{hours}:{minutes}:{seconds}</div>
+            <div className="recorder-counter">{addZero(hours)}:{addZero(minutes)}:{addZero(seconds)}</div>
 
     </div>
 )
 }
-export default Recorder;selectDateStart
+export default Recorder;
