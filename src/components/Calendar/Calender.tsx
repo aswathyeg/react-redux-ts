@@ -1,7 +1,7 @@
 import React from 'react';
 const Calendar:React.FC=()=>{
     return(
-        <div>
+        <div className="calendar">
 
         </div>
     )
