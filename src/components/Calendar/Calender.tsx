@@ -1,6 +1,11 @@
 import React from 'react';
 import './Calendar.css';
 import {connect} from 'react-redux';
+import { RootState } from '../../redux/store';
+
+const mapState=(state:RootState)=>({
+    events:
+})
 const Calendar:React.FC=()=>{
     return(
         <div className="calendar">
