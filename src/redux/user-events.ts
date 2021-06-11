@@ -20,11 +20,23 @@ const initialState:UserEventsState={
 const LOAD_REQUIEST='userEvents/load_request';
 interface LoadRequestAction extends Action<typeof LOAD_REQUIEST>{}
 
+const LOAD_SUCCESSS='userEvents/load_success';
+interface LoadSuccessAction extends Action<typeof LOAD_SUCCESSS>{
+    payload:{
+        events:UserEvents[]
+    }
+}
+const LOAD_FAILURE='userEvents/load_failure'
+interface LoadFailureAction extends Action<typeof LOAD_FAILURE>{
+    error:string;
+}
+
 export const loadUserEvents=():ThunkAction<
 void,
 RootState,
 undefined,
-LoadRequestAction
+LoadRequestAction | LoadSuccessAction | LoadFailureAction
+
  > => async(dispatch,getState)=>{
     dispatch({
         type:LOAD_REQUIEST
@@ -32,8 +44,17 @@ LoadRequestAction
     try{
 const response=await fetch('http://localhost:3001/events');
 const events:UserEvents[]=await response.json();
+dispatch({
+    type:LOAD_SUCCESSS,
+    payload:{events}
+});
+
     }
     catch(e){
+        dispatch({
+            type:LOAD_FAILURE,
+            error:"Failed to load events."
+        });
 
     }
 
