@@ -61,9 +61,17 @@ dispatch({
 };
 
 
-const userEventsReducer=(state:UserEventsState=initialState
-    ,action:AnyAction)=>{
+const userEventsReducer=(state:UserEventsState=initialState,
+    action:LoadSuccessAction)=>{
     switch (action.type){
+        case LOAD_SUCCESSS :
+            const {events}=action.payload;
+           return {...state,allIds:events.map(({id})=>id),
+            byIds:events.reduce<UserEventsState['byIds']>((byIds,event)=>{
+                byIds[event.id] =event;
+                return byIds;
+            },{})
+        };
         default:
             return state;
     }
