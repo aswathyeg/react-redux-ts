@@ -1,6 +1,6 @@
 import React from 'react';
 import './Calendar.css';
-import {connect} from 'react-redux';
+import {connect, ConnectedProps} from 'react-redux';
 import { RootState } from '../../redux/store';
 import { selectUSerEventsArray,loadUserEvents } from '../../redux/user-events';
 
@@ -12,8 +12,10 @@ loadUserEvents
 };
 
 const connector=connect (mapState,mapDispatch);
+type PropsFromRedux=ConnectedProps<typeof connector>;
+interface Props extends PropsFromRedux{}
 
-const Calendar:React.FC=()=>{
+const Calendar:React.FC<Props>=({events,loadUserEvents})=>{
     return(
         <div className="calendar">
             <div className="calendar-day">
