@@ -11,6 +11,7 @@ const mapDispatch={
 loadUserEvents
 };
 
+const connector=connect (mapState,mapDispatch);
 
 const Calendar:React.FC=()=>{
     return(
@@ -48,4 +49,4 @@ const Calendar:React.FC=()=>{
         </div>
     );
 }
-export default Calendar;
+export default connector(Calendar);
