@@ -2,10 +2,11 @@ import React from 'react';
 import './Calendar.css';
 import {connect} from 'react-redux';
 import { RootState } from '../../redux/store';
+import { selectUSerEventsArray } from '../../redux/user-events';
 
 const mapState=(state:RootState)=>({
-    events:
-})
+    events:selectUSerEventsArray(state)
+});
 const Calendar:React.FC=()=>{
     return(
         <div className="calendar">
