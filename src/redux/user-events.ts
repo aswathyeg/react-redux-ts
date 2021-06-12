@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Action, AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "./store";
@@ -13,10 +14,7 @@ interface UserEventsState{ //for normalising data
     byIds:Record<UserEvents['id'],UserEvents>; //Extract 'id' as key and value as object
     allIds:UserEvents['id'][]; //returs a number array
 }
-const initialState:UserEventsState={
-    byIds:{}  ,
-    allIds:[]
-}
+
 const LOAD_REQUIEST='userEvents/load_request';
 interface LoadRequestAction extends Action<typeof LOAD_REQUIEST>{}
 
@@ -59,7 +57,16 @@ dispatch({
     }
 
 };
+const selectUSerEventsState=(rootState:RootState)=>rootState.userEvents;
 
+ export const selectUSerEventsArray=(rootState:RootState)=>{
+const state=selectUSerEventsState(rootState);
+return state.allIds.map(id=>state.byIds[id]);
+ };
+ const initialState:UserEventsState={
+    byIds:{}  ,
+    allIds:[]
+}
 
 const userEventsReducer=(state:UserEventsState=initialState,
     action:LoadSuccessAction)=>{
