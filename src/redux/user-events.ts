@@ -60,22 +60,22 @@ export const loadUserEvents = (): ThunkAction<
 };
 
 const CREATE_REQUEST='userevents/create_request';
-interface createRequestAction extends Action<typeof CREATE_REQUEST>{}
+interface CreateRequestAction extends Action<typeof CREATE_REQUEST>{}
 
 const CREATE_SUCCESS='userevents/create_success';
-interface createSuccessAction extends Action<typeof CREATE_SUCCESS>{
+interface CreateSuccessAction extends Action<typeof CREATE_SUCCESS>{
   payload:{
     event:UserEvent;
   }
 } 
 const CREATE_FAILURE='userevents/create_failure';
-interface createFailureAction extends Action<typeof CREATE_FAILURE>{}
+interface CreateFailureAction extends Action<typeof CREATE_FAILURE>{}
 
 export const  createUserEevent=():ThunkAction <
 Promise <void> , 
 RootState, 
 undefined, 
-createRequestAction |createSuccessAction |createFailureAction
+CreateRequestAction |CreateSuccessAction | CreateFailureAction
 > => async (dispatch,getState)=>{
   dispatch({
     type:CREATE_REQUEST
@@ -125,7 +125,7 @@ const initialState: UserEventsState = {
 
 const userEventsReducer = (
   state: UserEventsState = initialState,
-  action: LoadSuccessAction
+  action: LoadSuccessAction | CreateSuccessAction
 ) => {
   switch (action.type) {
     case LOAD_SUCCESS:
@@ -138,6 +138,13 @@ const userEventsReducer = (
           return byIds;
         }, {})
       };
+      case CREATE_SUCCESS:
+        const {event}=action.payload;
+        return {
+          ...state,
+          allIds:[...state.allIds,event.id],
+          byIds:{...state.byIds,[event.id]:event}
+        };
 
     default:
       return state;
