@@ -68,12 +68,14 @@ interface createSuccessAction extends Action<typeof CREATE_SUCCESS>{
     event:UserEvent;
   }
 } 
+const CREATE_FAILURE='userevents/create_failure';
+interface createFailureAction extends Action<typeof CREATE_FAILURE>{}
 
 export const  createUserEevent=():ThunkAction <
 Promise <void> , 
 RootState, 
 undefined, 
-createRequestAction
+createRequestAction |createSuccessAction |createFailureAction
 > => async (dispatch,getState)=>{
   dispatch({
     type:CREATE_REQUEST
@@ -89,14 +91,23 @@ const event:Omit<UserEvent,'id'>={
 
 };
 const response=await fetch(`http://localhost:3001/events`,{
-    method='POST',
-    headers={
+    method:'POST',
+    headers:{
         'Content-Type':'application/json'
     },
-    body=JSON.stringify(event)
+    body:JSON.stringify(event)
   }) ;
   const createdEvent:UserEvent=await response.json() ;
-  dispatch();
+  dispatch({
+    type:CREATE_SUCCESS,
+    payload:{event:createdEvent}
+  });
+}
+catch(e){
+  dispatch({
+    type:CREATE_FAILURE,
+  })
+
 }
 };
 
