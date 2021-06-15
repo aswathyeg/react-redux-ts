@@ -1,5 +1,6 @@
 import { AnyAction, Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { selectDateStart } from './recorder';
 import { RootState } from './store';
 
 export interface UserEvent {
@@ -56,6 +57,47 @@ export const loadUserEvents = (): ThunkAction<
       error: 'Failed to load events.'
     });
   }
+};
+
+const CREATE_REQUEST='userevents/create_request';
+interface createRequestAction extends Action<typeof CREATE_REQUEST>{}
+
+const CREATE_SUCCESS='userevents/create_success';
+interface createSuccessAction extends Action<typeof CREATE_SUCCESS>{
+  payload:{
+    event:UserEvent;
+  }
+} 
+
+export const  createUserEevent=():ThunkAction <
+Promise <void> , 
+RootState, 
+undefined, 
+createRequestAction
+> => async (dispatch,getState)=>{
+  dispatch({
+    type:CREATE_REQUEST
+  })
+try{
+  const dateStart=selectDateStart(getState());
+
+const event:Omit<UserEvent,'id'>={
+  title:'No name',
+  dateStart,
+  dateEnd:new Date().toISOString()
+
+
+};
+const response=await fetch(`http://localhost:3001/events`,{
+    method='POST',
+    headers={
+        'Content-Type':'application/json'
+    },
+    body=JSON.stringify(event)
+  }) ;
+  const createdEvent:UserEvent=await response.json() ;
+  dispatch();
+}
 };
 
 const selectUserEventsState = (rootState: RootState) => rootState.userEvents;
