@@ -111,13 +111,24 @@ catch(e){
 }
 };
 
+const DELETE_REQUEST='userEvents/delete_request';
+interface DeleteRequestAction extends Action<typeof DELETE_REQUEST>{}
 
 export const deleteUserEvent=(id:UserEvent['id']):
 ThunkAction<Promise<void>,
 RootState,
 undefined,
-Action>
-=>async()=>{}
+DeleteRequestAction>=>
+async dispatch=>{
+  dispatch({
+    type:DELETE_REQUEST
+  });
+  try{
+    
+  }
+}
+
+
 const selectUserEventsState = (rootState: RootState) => rootState.userEvents;
 
 export const selectUserEventsArray = (rootState: RootState) => {
