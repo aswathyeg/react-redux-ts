@@ -114,17 +114,40 @@ catch(e){
 const DELETE_REQUEST='userEvents/delete_request';
 interface DeleteRequestAction extends Action<typeof DELETE_REQUEST>{}
 
+const DELETE_SUCCESS='userEvents/delete_success';
+interface DeleteSuccessAction extends Action<typeof DELETE_SUCCESS>{
+  payload:{id:UserEvent['id']}
+}
+const DELETE_FAILURE='userEvents/delete_failure';
+interface DeleteFailureAction extends Action<typeof DELETE_FAILURE>{} 
+
+
+
 export const deleteUserEvent=(id:UserEvent['id']):
 ThunkAction<Promise<void>,
 RootState,
 undefined,
-DeleteRequestAction>=>
+DeleteRequestAction |DeleteSuccessAction |DeleteFailureAction>=>
 async dispatch=>{
   dispatch({
     type:DELETE_REQUEST
   });
   try{
+    const response=await fetch (`http://localhost3001/events/${id}`,{
+      method='DELETE'
+    })
+    if(response.ok){
+      dispatch({
+        type:DELETE_SUCCESS,
+        payload:{id}
+      });
+    }
     
+  }catch(e){
+    dispatch({
+      type:DELETE_FAILURE
+    })
+      
   }
 }
 
