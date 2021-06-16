@@ -111,6 +111,13 @@ catch(e){
 }
 };
 
+
+export const deleteUserEvent=(id:UserEvent['id']):
+ThunkAction<Promise<void>,
+RootState,
+undefined,
+Action>
+=>async()=>{}
 const selectUserEventsState = (rootState: RootState) => rootState.userEvents;
 
 export const selectUserEventsArray = (rootState: RootState) => {
