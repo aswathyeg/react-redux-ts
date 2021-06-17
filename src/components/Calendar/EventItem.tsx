@@ -17,11 +17,11 @@ return(
             <div className="calendar-event-time">10:00 - 12:00</div>
             <div className="calendar-event-title">{event.title}</div>
           </div>
-          <button className="calendar-event-delete-button" onClick={}>
+          <button className="calendar-event-delete-button" onClick={handleDeleteClick}>
             &times;
           </button>
         </div>
       );
-)
-}
+
+};
 export default EventItem;
