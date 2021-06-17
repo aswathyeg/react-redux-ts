@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { title } from 'process';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteUserEvent, UserEvent } from '../../redux/user-events';
 import './Calendar.css';
@@ -15,6 +16,22 @@ const EventItem :React.FC<Props>=({event})=>{
         setEditable(true);
 
       }
+      const inputRef=useRef<HTMLInputElement>(null);
+      useEffect(()=>{
+        if(editable ){
+          inputRef.current?.focus();
+        }
+
+
+      },[editable]);
+const[title,setTitle]=useState(event.title);
+      const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+setTitle(e.target.value);
+      }
+      const handleBlur=()=>{
+        setEditable(false);
+
+      }
 return(
     
      
@@ -23,7 +40,9 @@ return(
             <div className="calendar-event-time">10:00 - 12:00</div>
             <div className="calendar-event-title">
               {editable?(
-              <input type="text"  value={event.title}/>):(
+              <input type="text" ref={inputRef} value={title} 
+              onChange={handleChange}
+              onBlur={handleBlur}/>):(
               <span onClick={handleTitleClick}>{event.title}</span>)}</div>
           </div>
           <button className="calendar-event-delete-button" onClick={handleDeleteClick}>
