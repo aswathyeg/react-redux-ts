@@ -135,7 +135,7 @@ async dispatch=>{
   try{
     const response=await fetch (`http://localhost3001/events/${id}`,{
       method:'DELETE'
-    })
+    });
     if(response.ok){
       dispatch({
         type:DELETE_SUCCESS,
