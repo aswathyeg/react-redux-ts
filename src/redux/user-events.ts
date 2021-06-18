@@ -152,17 +152,19 @@ async dispatch=>{
 };
 const UPDATE_REQUEST='userevent/update_request';
 const UPDATE_SUCCESS='userevent/update_success';
+const UPDATE_FAILURE='userevent/update_success';
 
 interface UpdateRequestAction extends Action<typeof UPDATE_REQUEST>{}; 
 interface UpdateSuccessAction extends Action<typeof UPDATE_SUCCESS>{
   payload:{event:UserEvent}
 };
+interface UpdateFailureAction extends Action<typeof UPDATE_FAILURE>{};
 
 const updateUserEvent=(event:UserEvent):ThunkAction<
 Promise<void>,
 RootState,
 undefined,
-UpdateRequestAction |UpdateSuccessAction>  => async dispatch =>{
+UpdateRequestAction |UpdateSuccessAction |UpdateFailureAction>  => async dispatch =>{
   dispatch({
     type:UPDATE_REQUEST
   })
@@ -183,7 +185,7 @@ UpdateRequestAction |UpdateSuccessAction>  => async dispatch =>{
     });
    
   }catch(e){
-    dispatch({})
+    dispatch({ type:UPDATE_FAILURE})
   }
 
 };
