@@ -151,7 +151,7 @@ async dispatch=>{
   }
 };
 const UPDATE_REQUEST='userevent/update_request';
-const UPDATE_SUCCESS='userevent/update_select;
+const UPDATE_SUCCESS='userevent/update_success';
 
 interface UpdateRequestAction extends Action<typeof UPDATE_REQUEST>{}; 
 interface UpdateSuccessAction extends Action<typeof UPDATE_SUCCESS>{
