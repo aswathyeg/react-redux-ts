@@ -205,7 +205,7 @@ const initialState: UserEventsState = {
 
 const userEventsReducer = (
   state: UserEventsState = initialState,
-  action: LoadSuccessAction | CreateSuccessAction |DeleteSuccessAction
+  action: LoadSuccessAction | CreateSuccessAction |DeleteSuccessAction |UpdateSuccessAction
 ) => {
   switch (action.type) {
     case LOAD_SUCCESS:
@@ -234,6 +234,13 @@ const userEventsReducer = (
           };
           delete newState.byIds[id];
 return newState;
+
+case UPDATE_SUCCESS:
+  const {event:updatedEvent}=action.payload;
+  return {
+    ...state,
+    byIds:{...state.byIds,[updatedEvent.id]:updatedEvent}}
+
     default:
       return state;
   }
