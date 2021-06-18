@@ -160,7 +160,7 @@ interface UpdateSuccessAction extends Action<typeof UPDATE_SUCCESS>{
 };
 interface UpdateFailureAction extends Action<typeof UPDATE_FAILURE>{};
 
-const updateUserEvent=(event:UserEvent):ThunkAction<
+ export const updateUserEvent=(event:UserEvent):ThunkAction<
 Promise<void>,
 RootState,
 undefined,
