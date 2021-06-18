@@ -1,7 +1,7 @@
 import { title } from 'process';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUserEvent, UserEvent } from '../../redux/user-events';
+import { deleteUserEvent, UserEvent ,updateUserEvent} from '../../redux/user-events';
 import './Calendar.css';
 interface Props{
     event:UserEvent;
@@ -29,9 +29,17 @@ const[title,setTitle]=useState(event.title);
 setTitle(e.target.value);
       }
       const handleBlur=()=>{
+        if(title!==event.title){
+          dispatch(
+            updateUserEvent({
+...event,
+title
+            })
+          )
+        }
         setEditable(false);
 
-      }
+      };
 return(
     
      
