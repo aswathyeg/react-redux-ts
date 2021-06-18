@@ -150,6 +150,43 @@ async dispatch=>{
       
   }
 };
+const UPDATE_REQUEST='userevent/update_request';
+const UPDATE_SUCCESS='userevent/update_select;
+
+interface UpdateRequestAction extends Action<typeof UPDATE_REQUEST>{}; 
+interface UpdateSuccessAction extends Action<typeof UPDATE_SUCCESS>{
+  payload:{event:UserEvent}
+};
+
+const updateUserEvent=(event:UserEvent):ThunkAction<
+Promise<void>,
+RootState,
+undefined,
+UpdateRequestAction |UpdateSuccessAction>  => async dispatch =>{
+  dispatch({
+    type:UPDATE_REQUEST
+  })
+  try{
+    const response=await fetch(`http://localhost:3001/events/${event.id}`,{
+      method:'PUT',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(event)
+    } );
+    const updatedEvent:UserEvent = await response.json();
+    dispatch({
+      type:UPDATE_SUCCESS,
+      payload : {
+      event:  updatedEvent
+      }
+    });
+   
+  }catch(e){
+    dispatch({})
+  }
+
+};
 
 
 const selectUserEventsState = (rootState: RootState) => rootState.userEvents;
