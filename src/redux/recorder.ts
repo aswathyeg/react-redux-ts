@@ -8,8 +8,9 @@ interface RecorderState {
 
 //for 2 types of actions
 const START = 'recorder/start';
-const STOP = 'recoder/stop';
+const STOP = 'recorder/stop';
 
+//describing action objects
 type StartAction = Action<typeof START>;
 type StopAction = Action<typeof STOP>;
 
